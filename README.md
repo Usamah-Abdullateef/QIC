@@ -36,12 +36,6 @@ panel.
 **Adding media:** add `{ title, category, href }` entries to `mediaItems`.
 Links can point to YouTube, Instagram, a gallery and so on.
 
-## Before launch (TODO)
-
-- [ ] Confirm the contact email in `src/content/site.ts` (currently `info@qic.international`)
-- [ ] Social media URLs in `src/content/site.ts`
-- [ ] Event dates, locations and speakers
-- [ ] Event and media photography
 
 The contact form deliberately stays simple: it opens the visitor's email app
 with their message filled in (`mailto:`), so no form backend is needed.
