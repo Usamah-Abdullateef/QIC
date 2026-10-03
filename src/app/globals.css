@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+/*
+ * QIC design tokens. Brand colours are sampled from the QIC logo
+ * (deep green gradient #022a22 → #035040, gold #e1b22e → #d09b24).
+ * Green and gold are used with restraint: warm ivory does most of the work.
+ */
+@theme inline {
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-newsreader), ui-serif, Georgia, serif;
+}
+
+@theme {
+  --color-paper: #f8f6f1;
+  --color-sand: #efebe2;
+  --color-line: #e0dacd;
+  --color-ink: #10201b;
+  --color-ink-muted: #4a5953;
+
+  --color-brand-50: #eef5f2;
+  --color-brand-100: #d6e8e0;
+  --color-brand-200: #a9cfc0;
+  --color-brand-300: #71ad96;
+  --color-brand-400: #3a8a6e;
+  --color-brand-500: #106e54;
+  --color-brand-600: #035f4b;
+  --color-brand-700: #035040;
+  --color-brand-800: #033f33;
+  --color-brand-900: #022f26;
+  --color-brand-950: #011d18;
+
+  --color-gold-200: #f3dfa0;
+  --color-gold-300: #ebcb68;
+  --color-gold-400: #e1b22e;
+  --color-gold-500: #d09b24;
+  --color-gold-600: #a97b18;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+  }
+
+  ::selection {
+    background-color: var(--color-gold-200);
+    color: var(--color-brand-950);
+  }
+
+  [id] {
+    scroll-margin-top: 6rem;
+  }
+}
