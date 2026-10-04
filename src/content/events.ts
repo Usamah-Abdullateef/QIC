@@ -41,6 +41,8 @@ export const events: QicEvent[] = [
       "The event has its own dedicated website, where you'll find the full programme, registration details and the latest updates.",
     ],
     status: "upcoming",
+    date: "2027-01-23",
+    location: "Alausa Secretariat Central Mosque, Ikeja, Lagos",
     audience: "Quran memorisers and those currently memorising",
     format: "In-person gathering",
     website: { href: QURAN_REVISION_DAY_URL, label: "Visit Event Website" },
