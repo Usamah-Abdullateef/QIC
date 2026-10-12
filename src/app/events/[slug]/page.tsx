@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, CalendarDays, MapPin, Users, Sparkles } from "lucide-react";
-import { EventAction, EventArt, EventCard } from "@/components/events";
+import { ArrowLeft, CalendarDays, MapPin, Ticket, Users, Sparkles } from "lucide-react";
+import { EventAction, EventArt, EventCard, EventPoster } from "@/components/events";
 import { JoinTheJourney } from "@/components/sections";
 import { ArrowLink, Container, Eyebrow } from "@/components/ui";
 import { events, formatEventDate, getEvent, upcomingEvents } from "@/content/events";
@@ -28,8 +28,13 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
   if (!event) notFound();
 
   const facts = [
-    { icon: CalendarDays, label: "Date", value: event.date ? formatEventDate(event.date) : "To be announced" },
+    {
+      icon: CalendarDays,
+      label: event.time ? "Date & time" : "Date",
+      value: event.date ? [formatEventDate(event.date), event.time].filter(Boolean).join(", ") : "To be announced",
+    },
     { icon: MapPin, label: "Location", value: event.location ?? "To be announced" },
+    ...(event.fee ? [{ icon: Ticket, label: "Registration fee", value: event.fee }] : []),
     ...(event.audience ? [{ icon: Users, label: "Who it's for", value: event.audience }] : []),
     ...(event.format ? [{ icon: Sparkles, label: "Format", value: event.format }] : []),
   ];
@@ -65,7 +70,11 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
 
             <aside className="lg:col-span-5">
               <div className="overflow-hidden rounded-2xl border border-line bg-white/60">
-                <EventArt event={event} className="aspect-[16/9]" />
+                {event.poster ? (
+                  <EventPoster poster={event.poster} className="border-b border-line" />
+                ) : (
+                  <EventArt event={event} className="aspect-[16/9]" />
+                )}
                 <div className="p-6 sm:p-8">
                   <h2 className="text-xs font-bold tracking-widest text-brand-600 uppercase">Key information</h2>
                   <dl className="mt-5 divide-y divide-line">

@@ -1,3 +1,7 @@
+import type { StaticImageData } from "next/image";
+import qrdPoster from "@/assets/events/quran-revision-day-poster.jpg";
+import qrdPosterLandscape from "@/assets/events/quran-revision-day-poster-landscape.jpg";
+
 // QIC events. To add an event, add an entry to `events`; it gets a card on
 // the Events page and its own page at /events/<slug>.
 //
@@ -16,7 +20,11 @@ export type QicEvent = {
   status: "upcoming" | "past";
   /** ISO date (YYYY-MM-DD). */
   date?: string;
+  /** e.g. "6am – 9pm". */
+  time?: string;
   location?: string;
+  /** e.g. "₦5,000". */
+  fee?: string;
   audience?: string;
   format?: string;
   speakers?: { name: string; role?: string }[];
@@ -24,6 +32,8 @@ export type QicEvent = {
   website?: { href: string; label: string };
   /** Path under /public. Without one, a branded artwork panel is shown. */
   image?: string;
+  /** Event flyer, always shown uncropped: `landscape` on cards, `portrait` on the event page. */
+  poster?: { landscape: StaticImageData; portrait?: StaticImageData; alt: string };
   featured?: boolean;
 };
 
@@ -42,10 +52,17 @@ export const events: QicEvent[] = [
     ],
     status: "upcoming",
     date: "2027-01-23",
+    time: "6am – 9pm",
     location: "Alausa Secretariat Central Mosque, Ikeja, Lagos",
-    audience: "Quran memorisers and those currently memorising",
-    format: "In-person gathering",
+    fee: "₦5,000",
+    audience: "Brothers only: Quran memorisers and those currently memorising",
+    format: "In-person revision in four categories: 5, 10, 15 and 30 ajzaa",
     website: { href: QURAN_REVISION_DAY_URL, label: "Visit Event Website" },
+    poster: {
+      landscape: qrdPosterLandscape,
+      portrait: qrdPoster,
+      alt: "Quran Revision Day 2027 poster: 23 January 2027, 6am to 9pm, at Alausa Secretariat Mosque, Ikeja, Lagos. Categories of 5, 10, 15 and 30 ajzaa. Registration fee ₦5,000 at qrdnigeria.com. Brothers only. Brought to you by QIC.",
+    },
     featured: true,
   },
   {

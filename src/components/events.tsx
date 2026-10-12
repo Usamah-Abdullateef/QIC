@@ -13,7 +13,7 @@ const artTones = [
   { bg: "bg-brand-950", lines: "text-brand-400/35", emblem: emblemWhite, emblemOpacity: "opacity-[0.07]" },
 ];
 
-/** Event photo, or a decorative branded panel until photos are available. */
+/** Event poster, photo, or a decorative branded panel until either is available. */
 export function EventArt({
   event,
   tone = 0,
@@ -25,6 +25,20 @@ export function EventArt({
   className?: string;
   size?: "md" | "lg";
 }) {
+  if (event.poster) {
+    return (
+      <div className={cx("relative overflow-hidden bg-white", className)}>
+        <Image
+          src={event.poster.landscape}
+          alt={event.poster.alt}
+          fill
+          placeholder="blur"
+          className="object-contain"
+          sizes="(min-width: 1024px) 50vw, 100vw"
+        />
+      </div>
+    );
+  }
   if (event.image) {
     return (
       <div className={cx("relative overflow-hidden", className)}>
@@ -42,6 +56,31 @@ export function EventArt({
         className={cx("absolute top-1/2 -right-[12%] -z-10 h-[125%] w-auto max-w-none -translate-y-1/2", t.emblemOpacity)}
       />
     </div>
+  );
+}
+
+/** The event's portrait poster at full size, linking to the original image. */
+export function EventPoster({ poster, className }: { poster: NonNullable<QicEvent["poster"]>; className?: string }) {
+  const image = poster.portrait ?? poster.landscape;
+  return (
+    <a
+      href={image.src}
+      target="_blank"
+      rel="noopener"
+      className={cx(
+        "block bg-white focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-brand-700",
+        className,
+      )}
+    >
+      <Image
+        src={image}
+        alt={poster.alt}
+        placeholder="blur"
+        className="h-auto w-full"
+        sizes="(min-width: 1024px) 40vw, 100vw"
+      />
+      <span className="sr-only">(opens the full-size poster in a new tab)</span>
+    </a>
   );
 }
 
@@ -82,7 +121,17 @@ export function EventAction({ event, variant = "primary" }: { event: QicEvent; v
 export function FeaturedEvent({ event }: { event: QicEvent }) {
   return (
     <article className="grid overflow-hidden rounded-2xl border border-line bg-white/60 lg:grid-cols-2">
-      <EventArt event={event} size="lg" className="min-h-72 lg:min-h-[28rem]" />
+      {event.poster ? (
+        <Image
+          src={event.poster.landscape}
+          alt={event.poster.alt}
+          placeholder="blur"
+          className="h-auto w-full self-center"
+          sizes="(min-width: 1024px) 50vw, 100vw"
+        />
+      ) : (
+        <EventArt event={event} size="lg" className="min-h-72 lg:min-h-[28rem]" />
+      )}
       <div className="flex flex-col justify-center p-7 sm:p-10 lg:p-14">
         <p className="inline-flex w-fit items-center gap-2 rounded-full bg-brand-50 px-3 py-1 text-xs font-bold tracking-wide text-brand-700 uppercase">
           <span aria-hidden className="size-1.5 rounded-full bg-gold-500" />
