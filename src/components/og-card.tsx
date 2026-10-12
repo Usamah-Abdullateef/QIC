@@ -8,11 +8,9 @@ import { site } from "@/content/site";
 
 export const ogSize = { width: 1200, height: 630 };
 
-const asset = (...p: string[]) => readFile(join(process.cwd(), ...p));
-
 // Gold version of the emblem: swap the white fill for the logo's gold gradient.
 async function goldEmblem() {
-  const svg = (await asset("public/brand/qic-emblem-white.svg"))
+  const svg = (await readFile(join(process.cwd(), "public/brand/qic-emblem-white.svg")))
     .toString()
     .replace(
       'aria-label="QIC">',
@@ -50,9 +48,9 @@ export async function ogCard({
 }) {
   const [emblem, newsreader, newsreaderItalic, manrope] = await Promise.all([
     goldEmblem(),
-    asset("src/assets/og/Newsreader-Regular.ttf"),
-    asset("src/assets/og/Newsreader-Italic.ttf"),
-    asset("src/assets/og/Manrope-SemiBold.ttf"),
+    readFile(join(process.cwd(), "src/assets/og/Newsreader-Regular.ttf")),
+    readFile(join(process.cwd(), "src/assets/og/Newsreader-Italic.ttf")),
+    readFile(join(process.cwd(), "src/assets/og/Manrope-SemiBold.ttf")),
   ]);
 
   return new ImageResponse(
