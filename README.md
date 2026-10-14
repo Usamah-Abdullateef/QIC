@@ -15,7 +15,7 @@ npm run lint
 
 ## Editing content
 
-Events, initiatives, media and site settings live in typed files under
+Events, initiatives, media, and site settings live in typed files under
 `src/content/`. You don't need to change any page code to update them.
 
 | File | What it controls |
@@ -27,14 +27,14 @@ Events, initiatives, media and site settings live in typed files under
 
 **Adding an event:** add an object to `events` in `events.ts`. Leave `date` and
 `location` out until they're confirmed, and the site shows "To be announced".
-If the event has its own website, set `website` and the QIC page becomes an
+If the event has its own website, set `websit,e` and the QIC page becomes an
 overview that links through to it. Change `status` to `"past"` once the event
 has happened. For a photo, put it in `public/events/` and set
 `image: "/events/<file>.jpg"`. Without one, the event shows a branded artwork
 panel.
 
 **Adding media:** add `{ title, category, href }` entries to `mediaItems`.
-Links can point to YouTube, Instagram, a gallery and so on.
+Links can point to YouTube, Instagram, a gallery, and so on.
 
 
 The contact form deliberately stays simple: it opens the visitor's email app
@@ -48,8 +48,8 @@ sparingly: warm ivory does most of the work. Headings use Newsreader and body
 text uses Manrope, both loaded through `next/font`. The flowing-lines motif
 (`src/components/wave-lines.tsx`) echoes the bands in the QIC emblem.
 
-The SVG logos in `public/brand/` (full logo, emblem and white versions) were
+The SVG logos in `public/brand/` (full logo, emblem, and white versions) were
 traced from the original PNG (`qic-logo.png`), and the app icons in
-`src/app/` were rendered from the traced emblem. If QIC's designer has the
+`src/app/` was rendered from the traced emblem. If QIC's designer has the
 original vector artwork, drop it in with the same file names; nothing else
 needs to change.
