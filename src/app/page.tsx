@@ -78,32 +78,62 @@ export default function HomePage() {
           </div>
 
           <div className="lg:col-span-5">
-            <div className="relative isolate aspect-[4/5] max-h-[36rem] w-full overflow-hidden rounded-3xl bg-brand-900 sm:aspect-[5/4] lg:aspect-[4/5]">
-              <WaveLines className="absolute inset-0 -z-10 size-full text-brand-400/35" lines={14} amplitude={20} />
-              <Image
-                src={emblemWhite}
-                alt=""
-                className="absolute -top-10 -right-16 -z-10 w-[85%] max-w-none opacity-[0.07]"
-              />
-              <div className="absolute inset-0 -z-10 bg-linear-to-t from-brand-950/90 via-brand-950/20 to-transparent" />
-
-              {featuredEvent && (
-                <div className="absolute inset-x-4 bottom-4 rounded-2xl bg-paper p-6 shadow-xl shadow-brand-950/20 sm:inset-x-6 sm:bottom-6 sm:p-7">
-                  <p className="text-xs font-bold tracking-widest text-brand-600 uppercase">Next event</p>
-                  <p className="mt-2 font-display text-2xl tracking-tight text-ink sm:text-3xl">
+            {featuredEvent?.poster ? (
+              <div className="mx-auto max-w-md lg:max-w-none">
+                <Link
+                  href={`/events/${featuredEvent.slug}`}
+                  className="block overflow-hidden rounded-3xl border border-line bg-white shadow-xl shadow-brand-950/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-700"
+                >
+                  <Image
+                    src={featuredEvent.poster.portrait ?? featuredEvent.poster.landscape}
+                    alt={featuredEvent.poster.alt}
+                    placeholder="blur"
+                    loading="eager"
+                    className="h-auto w-full"
+                    sizes="(min-width: 1024px) 40vw, 28rem"
+                  />
+                </Link>
+                <div className="mt-5 flex flex-wrap items-center justify-between gap-x-5 gap-y-3">
+                  <p className="text-sm text-ink-muted">
+                    <span className="text-xs font-bold tracking-widest text-brand-600 uppercase">Next event</span>
+                    <span aria-hidden className="mx-2">·</span>
                     {featuredEvent.name}
                   </p>
-                  <EventMeta event={featuredEvent} className="mt-3" />
-                  <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-3">
-                    {featuredEvent.website ? (
-                      <ArrowLink href={featuredEvent.website.href}>{featuredEvent.website.label}</ArrowLink>
-                    ) : (
-                      <ArrowLink href={`/events/${featuredEvent.slug}`}>Learn More</ArrowLink>
-                    )}
-                  </div>
+                  {featuredEvent.website ? (
+                    <ArrowLink href={featuredEvent.website.href}>{featuredEvent.website.label}</ArrowLink>
+                  ) : (
+                    <ArrowLink href={`/events/${featuredEvent.slug}`}>Learn More</ArrowLink>
+                  )}
                 </div>
-              )}
-            </div>
+              </div>
+            ) : (
+              <div className="relative isolate aspect-[4/5] max-h-[36rem] w-full overflow-hidden rounded-3xl bg-brand-900 sm:aspect-[5/4] lg:aspect-[4/5]">
+                <WaveLines className="absolute inset-0 -z-10 size-full text-brand-400/35" lines={14} amplitude={20} />
+                <Image
+                  src={emblemWhite}
+                  alt=""
+                  className="absolute -top-10 -right-16 -z-10 w-[85%] max-w-none opacity-[0.07]"
+                />
+                <div className="absolute inset-0 -z-10 bg-linear-to-t from-brand-950/90 via-brand-950/20 to-transparent" />
+
+                {featuredEvent && (
+                  <div className="absolute inset-x-4 bottom-4 rounded-2xl bg-paper p-6 shadow-xl shadow-brand-950/20 sm:inset-x-6 sm:bottom-6 sm:p-7">
+                    <p className="text-xs font-bold tracking-widest text-brand-600 uppercase">Next event</p>
+                    <p className="mt-2 font-display text-2xl tracking-tight text-ink sm:text-3xl">
+                      {featuredEvent.name}
+                    </p>
+                    <EventMeta event={featuredEvent} className="mt-3" />
+                    <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-3">
+                      {featuredEvent.website ? (
+                        <ArrowLink href={featuredEvent.website.href}>{featuredEvent.website.label}</ArrowLink>
+                      ) : (
+                        <ArrowLink href={`/events/${featuredEvent.slug}`}>Learn More</ArrowLink>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </Container>
       </section>
