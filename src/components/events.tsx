@@ -3,7 +3,7 @@ import Link from "next/link";
 import { CalendarDays, MapPin } from "lucide-react";
 import emblem from "../../public/brand/qic-emblem.svg";
 import emblemWhite from "../../public/brand/qic-emblem-white.svg";
-import { formatEventDate, type QicEvent } from "@/content/events";
+import { formatEventDate, posterImage, type QicEvent } from "@/content/events";
 import { ArrowLink, ButtonLink, cx } from "./ui";
 import { WaveLines } from "./wave-lines";
 
@@ -26,10 +26,13 @@ export function EventArt({
   size?: "md" | "lg";
 }) {
   if (event.poster) {
+    const src = posterImage(event.poster, "landscape");
     return (
-      <div className={cx("relative overflow-hidden bg-white", className)}>
+      <div className={cx("relative isolate overflow-hidden bg-white", className)}>
+        {/* Blurred copy fills the space around a poster whose shape doesn't match the frame. */}
+        <Image src={src} alt="" fill aria-hidden className="-z-10 scale-110 object-cover opacity-60 blur-2xl" sizes="10vw" />
         <Image
-          src={event.poster.landscape}
+          src={src}
           alt={event.poster.alt}
           fill
           placeholder="blur"
@@ -61,7 +64,7 @@ export function EventArt({
 
 /** The event's portrait poster at full size, linking to the original image. */
 export function EventPoster({ poster, className }: { poster: NonNullable<QicEvent["poster"]>; className?: string }) {
-  const image = poster.portrait ?? poster.landscape;
+  const image = posterImage(poster, "portrait");
   return (
     <a
       href={image.src}
@@ -123,7 +126,7 @@ export function FeaturedEvent({ event }: { event: QicEvent }) {
     <article className="grid overflow-hidden rounded-2xl border border-line bg-white/60 lg:grid-cols-2">
       {event.poster ? (
         <Image
-          src={event.poster.landscape}
+          src={posterImage(event.poster, "landscape")}
           alt={event.poster.alt}
           placeholder="blur"
           className="h-auto w-full self-center"

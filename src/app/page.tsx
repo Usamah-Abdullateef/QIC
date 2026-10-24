@@ -6,7 +6,7 @@ import { EventCard, EventMeta, FeaturedEvent, MoreEventsTile } from "@/component
 import { JoinTheJourney } from "@/components/sections";
 import { ArrowLink, ButtonLink, Container, Eyebrow, SectionHeading } from "@/components/ui";
 import { WaveLines } from "@/components/wave-lines";
-import { featuredEvent, upcomingEvents } from "@/content/events";
+import { featuredEvent, posterImage, upcomingEvents } from "@/content/events";
 
 const whatWeDo = [
   {
@@ -85,7 +85,7 @@ export default function HomePage() {
                   className="block overflow-hidden rounded-3xl border border-line bg-white shadow-xl shadow-brand-950/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-700"
                 >
                   <Image
-                    src={featuredEvent.poster.portrait ?? featuredEvent.poster.landscape}
+                    src={posterImage(featuredEvent.poster, "portrait")}
                     alt={featuredEvent.poster.alt}
                     placeholder="blur"
                     loading="eager"
