@@ -8,7 +8,7 @@ export const site = {
   description:
     "Quran Initiative Collective (QIC) is a global platform creating meaningful spaces for Quranic learning, reflection, scholarship and community.",
   // TODO: confirm the public contact address.
-  email: "qrdnigeria@gmail.com",
+  email: "info@qic.international",
   // Add a URL to show a profile in the footer and contact page; empty ones are hidden.
   socials: [
     { label: "YouTube", href: "" },
